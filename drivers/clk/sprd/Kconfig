@@ -1,0 +1,18 @@
+config CLK_SPRD
+	bool "Clock support for Unisoc SoCs"
+	depends on CLK && ARCH_SPRD
+	default y
+	help
+	  This enables support for the clock controllers found in
+	  Unisoc/Spreadtrum SoCs.
+
+if CLK_SPRD
+
+config SPRD_UMS9230_CLK
+	bool "Unisoc UMS9230 clock support"
+	default TARGET_UMS9230
+	help
+	  This enables support for the clock controllers found in the
+	  Unisoc UMS9230 SoC.
+
+endif
