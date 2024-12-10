@@ -1,0 +1,33 @@
+if ARCH_SPRD
+
+config TEXT_BASE
+	default 0x9f000000
+
+config SYS_LOAD_ADDR
+	default 0x90000000
+
+choice
+	prompt "Unisoc target SoC"
+
+config TARGET_UMS9230
+	bool "UMS9230 (T606/T612/T616)"
+	select ARM64
+
+endchoice
+
+config SYS_SOC
+	default "sprd"
+
+config SYS_VENDOR
+	string "Board vendor"
+	default "unisoc"
+
+config SYS_BOARD
+	string "Board name"
+	default "ums9230" if TARGET_UMS9230
+
+config SYS_CONFIG_NAME
+	string "Board configuration name"
+	default "ums9230" if TARGET_UMS9230
+
+endif

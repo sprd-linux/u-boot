@@ -1,0 +1,13 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
+
+#ifndef __UMS9230_H
+#define __UMS9230_H
+
+#define CFG_SYS_SDRAM_BASE	0x80000000
+
+#define CFG_SYS_INIT_RAM_ADDR	0x80000000
+#define CFG_SYS_INIT_RAM_SIZE	0x00080000
+
+#define CFG_EXTRA_ENV_SETTINGS	"fdtfile=" CONFIG_DEFAULT_FDT_FILE "\0"
+
+#endif
