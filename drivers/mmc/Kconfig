@@ -748,6 +748,14 @@ config MMC_SDHCI_SNPS
 
 	  If unsure, say N.
 
+config MMC_SDHCI_SPRD
+	bool "SDHCI support for Unisoc SoCs"
+	depends on MMC_SDHCI && ARCH_SPRD
+	select MMC_SDHCI_IO_ACCESSORS
+	help
+	  This enables the Secure Digital Host Controller Interface (SDHCI)
+	  on Unisoc/Spreadtrum SoCs.
+
 config MMC_SDHCI_STI
 	bool "SDHCI support for STMicroelectronics SoC"
 	depends on MMC_SDHCI && OF_CONTROL
