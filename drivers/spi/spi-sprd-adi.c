@@ -386,6 +386,23 @@ static void sprd_adi_hw_init(struct sprd_adi *sadi)
 			writel_relaxed(value, sadi->base + REG_ADI_CHN_EN1);
 		}
 	}
+
+	/* FIXME this code does not belong here */
+	if (sprd_adi_read(sadi, 0x19b0, &tmp))
+		dev_err(sadi->dev, "read error");
+	dev_info(sadi->dev, "VDDSDCORE voltage register:    %08x\n", tmp);
+	if (sprd_adi_read(sadi, 0x19ac, &tmp))
+		dev_err(sadi->dev, "read error");
+	dev_info(sadi->dev, "VDDSDCORE power down register: %08x\n", tmp);
+	sprd_adi_write(sadi, 0x19ac, 0);
+
+	if (sprd_adi_read(sadi, 0x19bc, &tmp))
+		dev_err(sadi->dev, "read error");
+	dev_info(sadi->dev, "VDDSDIO voltage register:    %08x\n", tmp);
+	if (sprd_adi_read(sadi, 0x19b8, &tmp))
+		dev_err(sadi->dev, "read error");
+	dev_info(sadi->dev, "VDDSDIO power down register: %08x\n", tmp);
+	sprd_adi_write(sadi, 0x19b8, 0);
 }
 
 static int sprd_adi_probe(struct udevice *dev)
