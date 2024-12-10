@@ -546,6 +546,16 @@ config MMC_SDHCI_ADMA_64BIT
 	  default on 64 bit systems, but can be disabled if one of these
 	  systems includes 32-bit ADMA.
 
+config MMC_SDHCI_ADMA_64BIT_V4
+	bool "Use SHDCI ADMA with Version 4 64-bit descriptors"
+	depends on MMC_SDHCI_ADMA_64BIT
+	help
+	  This selects the new 64-bit descriptors introduced in SDHCI
+	  version 4 for SDHCI ADMA. These are also known as "128-bit"
+	  descriptors due to their length. This is only required for
+	  certain controllers that are incompatible with earlier
+	  SDHCI specification versions.
+
 config FIXED_SDHCI_ALIGNED_BUFFER
 	hex "SDRAM address for fixed buffer"
 	depends on SPL && MVEBU_SPL_BOOT_DEVICE_MMC

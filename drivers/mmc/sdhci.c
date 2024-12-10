@@ -91,6 +91,12 @@ static void sdhci_prepare_dma(struct sdhci_host *host, struct mmc_data *data,
 		ctrl |= SDHCI_CTRL_ADMA32;
 	sdhci_writeb(host, ctrl, SDHCI_HOST_CONTROL);
 
+	if (IS_ENABLED(CONFIG_MMC_SDHCI_ADMA_64BIT_V4)) {
+		unsigned short ctrl2 = sdhci_readw(host, SDHCI_HOST_CONTROL2);
+		ctrl2 |= SDHCI_CTRL_64BIT_ADDR;
+		sdhci_writew(host, ctrl2, SDHCI_HOST_CONTROL2);
+	}
+
 	if (host->flags & USE_SDMA &&
 	    (host->force_align_buffer ||
 	     (host->quirks & SDHCI_QUIRK_32BIT_DMA_ADDR &&
