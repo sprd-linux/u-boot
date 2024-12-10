@@ -21,6 +21,7 @@
  */
 
 #define SDHCI_DMA_ADDRESS	0x00
+#define SDHCI_32BIT_BLK_CNT	SDHCI_DMA_ADDRESS
 
 #define SDHCI_BLOCK_SIZE	0x04
 #define  SDHCI_MAKE_BLKSZ(dma, blksz) (((dma & 0x7) << 12) | (blksz & 0xFFF))
@@ -255,6 +256,8 @@
 #define SDHCI_QUIRK_SUPPORT_SINGLE	(1 << 10)
 /* Capability register bit-63 indicates HS400 support */
 #define SDHCI_QUIRK_CAPS_BIT63_FOR_HS400	BIT(11)
+/* Use 32-bit block count if required by the controller */
+#define SDHCI_QUIRK_USE_32BIT_BLK_CNT	BIT(12)
 
 /* to make gcc happy */
 struct sdhci_host;

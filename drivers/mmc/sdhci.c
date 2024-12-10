@@ -298,7 +298,10 @@ static int sdhci_send_command(struct mmc *mmc, struct mmc_cmd *cmd,
 		sdhci_writew(host, SDHCI_MAKE_BLKSZ(SDHCI_DEFAULT_BOUNDARY_ARG,
 				data->blocksize),
 				SDHCI_BLOCK_SIZE);
-		sdhci_writew(host, data->blocks, SDHCI_BLOCK_COUNT);
+		if (host->quirks & SDHCI_QUIRK_USE_32BIT_BLK_CNT)
+			sdhci_writew(host, data->blocks, SDHCI_32BIT_BLK_CNT);
+		else
+			sdhci_writew(host, data->blocks, SDHCI_BLOCK_COUNT);
 		sdhci_writew(host, mode, SDHCI_TRANSFER_MODE);
 	} else if (cmd->resp_type & MMC_RSP_BUSY) {
 		sdhci_writeb(host, 0xe, SDHCI_TIMEOUT_CONTROL);
