@@ -48,6 +48,10 @@ config UFS_RENESAS
 	  UFS host on Renesas needs some vendor specific configuration before
 	  accessing the hardware.
 
+config UFS_SPRD_UMS9230
+	bool "UFS controller support for Unisoc UMS9230"
+	depends on UFS
+
 config UFS_AMD_VERSAL2
 	bool "AMD Versal Gen 2 UFS controller platform driver"
 	depends on UFS && ZYNQMP_FIRMWARE
