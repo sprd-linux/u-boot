@@ -1,0 +1,82 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (C) TODO
+ */
+
+/dts-v1/;
+
+#include "ums9230.dtsi"
+#include "sc2730.dtsi"
+
+/ {
+	model = "Reeder S19 Max Pro S";
+
+	compatible = "reeder,s19mps", "sprd,ums9230";
+
+	aliases {
+		serial0 = &uart0;
+		serial1 = &uart1;
+	};
+
+	memory@80000000 {
+		device_type = "memory";
+		reg = <0x0 0x80000000 0x1 0xfffff000>;
+	};
+
+	chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		stdout-path = "serial1:115200n8";
+
+		framebuffer@9e000000 {
+			compatible = "simple-framebuffer";
+			reg = <0x0 0x9e000000 0x0 (720 * 1600 * 4)>;
+			width = <720>;
+			height = <1600>;
+			stride = <(720 * 4)>;
+			format = "a8r8g8b8";
+		};
+	};
+
+	bat: battery {
+		compatible = "simple-battery";
+		charge-full-design-microamp-hours = <4096000>;
+		charge-term-current-microamp = <130000>;
+		constant-charge-voltage-max-microvolt = <4400000>;
+		voltage-min-design-microvolt = <3500000>;
+		voltage-max-design-microvolt = <4370000>;
+		factory-internal-resistance-micro-ohms = <268000>;
+		resistance-temp-table = <45 53>, <25 100>, <10 395>,
+					<0 567>, <(-10) 793>;
+		ocv-capacity-celsius = <20>;
+		ocv-capacity-table-0 = <4362000 100>, <4316000 95>,
+				       <4256000 90>, <4197000 85>,
+				       <4142000 80>, <4089000 75>,
+				       <4040000 70>, <3981000 65>,
+				       <3941000 60>, <3890000 55>,
+				       <3853000 50>, <3826000 45>,
+				       <3805000 40>, <3788000 35>,
+				       <3776000 30>, <3767000 25>,
+				       <3751000 20>, <3725000 15>,
+				       <3693000 10>, <3675000 5>,
+				       <3400000 0>;
+	};
+};
+
+&sdio0 {
+	status = "okay";
+};
+
+&uart0 {
+	status = "okay";
+};
+
+&uart1 {
+	status = "okay";
+};
+
+&usb {
+	status = "okay";
+};
