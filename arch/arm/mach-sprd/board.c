@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0
 /*
- * Copyright (C) 2024 TODO
+ * Copyright (C) 2024 Otto Pflüger
  */
 
 #include <asm/armv8/mmu.h>
@@ -51,12 +51,9 @@ int dram_init_banksize(void)
 	return 0;
 }
 
-void reset_cpu(void)
-{
-	psci_system_reset();
-}
-
 int board_init(void)
 {
+	/* HACK: Set SDIO 2x clock source to RPLL */
+	*((u32*)0x20010074) = 4;
 	return 0;
 }
