@@ -58,20 +58,18 @@ endif
 
 export SPL_NAME
 
-ifdef CONFIG_XPL_BUILD
-XPL_ := SPL_
+ifeq ($(CONFIG_SPL_BUILD),y)
+PHASE_ := SPL_
+else
 ifeq ($(CONFIG_VPL_BUILD),y)
 PHASE_ := VPL_
 else
 ifeq ($(CONFIG_TPL_BUILD),y)
 PHASE_ := TPL_
 else
-PHASE_ := SPL_
-endif
-endif
-else
-XPL_ :=
 PHASE_ :=
+endif
+endif
 endif
 
 ifeq ($(obj)$(CONFIG_SUPPORT_SPL),spl)
@@ -137,7 +135,7 @@ head-y		:= $(addprefix $(obj)/,$(head-y))
 libs-y		:= $(addprefix $(obj)/,$(libs-y))
 u-boot-spl-dirs	:= $(patsubst %/,%,$(filter %/, $(libs-y)))
 
-libs-y := $(patsubst %/, %/built-in.o, $(libs-y))
+libs-y := $(patsubst %/, %/built-in.a, $(libs-y))
 
 # Add GCC lib
 ifeq ($(CONFIG_USE_PRIVATE_LIBGCC),y)

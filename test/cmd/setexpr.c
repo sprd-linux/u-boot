@@ -7,9 +7,9 @@
  */
 
 #include <console.h>
+#include <env.h>
 #include <mapmem.h>
 #include <dm/test.h>
-#include <test/suites.h>
 #include <test/ut.h>
 
 #define BUF_SIZE	0x100

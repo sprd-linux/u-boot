@@ -82,7 +82,7 @@ void dram_bank_mmu_setup(int bank)
 		option = DCACHE_DEFAULT_OPTION;
 		if (use_lmb &&
 		    (lmb_is_reserved_flags(i << MMU_SECTION_SHIFT, LMB_NOMAP) ||
-		    addr >= gd->ram_top)
+		     (gd->ram_top && addr >= gd->ram_top))
 		   )
 			option = 0; /* INVALID ENTRY in TLB */
 		set_section_dcache(i, option);
@@ -138,8 +138,6 @@ int mach_cpu_init(void)
 	if (IS_ENABLED(CONFIG_CMD_STM32PROG_SERIAL) &&
 	    (boot_mode & TAMP_BOOT_DEVICE_MASK) == BOOT_SERIAL_UART)
 		gd->flags |= GD_FLG_SILENT | GD_FLG_DISABLE_CONSOLE;
-	else if (IS_ENABLED(CONFIG_DEBUG_UART) && IS_ENABLED(CONFIG_XPL_BUILD))
-		debug_uart_init();
 
 	return 0;
 }
@@ -332,8 +330,7 @@ static uintptr_t nt_fw_dtb __section(".data");
 void save_boot_params(unsigned long r0, unsigned long r1, unsigned long r2,
 		      unsigned long r3)
 {
-	if (IS_ENABLED(CONFIG_STM32_ECDSA_VERIFY))
-		rom_api_table = r0;
+	rom_api_table = r0;
 
 	if (IS_ENABLED(CONFIG_TFABOOT))
 		nt_fw_dtb = r2;
@@ -352,7 +349,7 @@ uintptr_t get_stm32mp_bl2_dtb(void)
 }
 
 #ifdef CONFIG_XPL_BUILD
-void __noreturn jump_to_image_no_args(struct spl_image_info *spl_image)
+void __noreturn jump_to_image(struct spl_image_info *spl_image)
 {
 	typedef void __noreturn (*image_entry_stm32_t)(u32 romapi);
 	uintptr_t romapi = get_stm32mp_rom_api_table();

@@ -72,6 +72,7 @@ Shell commands
    cmd/fdt
    cmd/font
    cmd/for
+   cmd/fuse
    cmd/fwu_mdata
    cmd/gpio
    cmd/gpt
@@ -93,6 +94,7 @@ Shell commands
    cmd/msr
    cmd/mtest
    cmd/mtrr
+   cmd/mv
    cmd/optee
    cmd/panic
    cmd/part
@@ -117,10 +119,12 @@ Shell commands
    cmd/sleep
    cmd/sm
    cmd/smbios
+   cmd/sntp
    cmd/sound
    cmd/source
    cmd/tcpm
    cmd/temperature
+   cmd/test
    cmd/tftpput
    cmd/trace
    cmd/true

@@ -17,7 +17,6 @@ U-Boot API documentation
    interrupt
    led
    linker_lists
-   lmb
    logging
    nvmem
    part
@@ -25,6 +24,8 @@ U-Boot API documentation
    rng
    sandbox
    serial
+   setjmp
    sysreset
    timer
    unicode
+   uthread

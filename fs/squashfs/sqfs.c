@@ -949,7 +949,7 @@ static int sqfs_opendir_nest(const char *filename, struct fs_dir_stream **dirsp)
 		goto out;
 	}
 
-	token_list = malloc(token_count * sizeof(char *));
+	token_list = calloc(token_count, sizeof(char *));
 	if (!token_list) {
 		ret = -EINVAL;
 		goto out;
@@ -987,9 +987,11 @@ static int sqfs_opendir_nest(const char *filename, struct fs_dir_stream **dirsp)
 	*dirsp = (struct fs_dir_stream *)dirs;
 
 out:
-	for (j = 0; j < token_count; j++)
-		free(token_list[j]);
-	free(token_list);
+	if (token_list) {
+		for (j = 0; j < token_count; j++)
+			free(token_list[j]);
+		free(token_list);
+	}
 	free(pos_list);
 	free(path);
 	if (ret) {
@@ -1712,7 +1714,8 @@ static int sqfs_size_nest(const char *filename, loff_t *size)
 	case SQFS_LSYMLINK_TYPE:
 		if (++symlinknest == MAX_SYMLINK_NEST) {
 			*size = 0;
-			return -ELOOP;
+			ret = -ELOOP;
+			break;
 		}
 
 		symlink = (struct squashfs_symlink_inode *)ipos;

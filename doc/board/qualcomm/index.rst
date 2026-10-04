@@ -8,5 +8,8 @@ Qualcomm
 
    dragonboard410c
    rb3gen2
+   dragonwing
    board
+   phones
    debugging
+   rdp

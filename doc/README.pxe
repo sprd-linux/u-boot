@@ -160,7 +160,7 @@ kernel <path>	    - if this label is chosen, use tftp to retrieve the kernel
 		      It will passed to bootm with that address.
 		      (see: doc/uImage.FIT/command_syntax_extensions.txt)
 		      It useful for overlay selection in pxe file
-		      (see: doc/uImage.FIT/overlay-fdt-boot.txt)
+		      (see: doc/usage/fit/overlay-fdt-boot.rst).
 
 fdtoverlays <path> [...] - if this label is chosen, use tftp to retrieve the DT
                       overlay(s) at <path>. it will be temporarily stored at the
@@ -178,7 +178,8 @@ devicetree-overlay <path> [...] - if this label is chosen, use tftp to retrieve 
 kaslrseed           - set this label to request random number from hwrng as kaslr seed.
 
 append <string>	    - use <string> as the kernel command line when booting this
-		      label.
+		      label. Environment variable references like ${var} are
+		      substituted before boot.
 
 initrd <path>	    - if this label is chosen, use tftp to retrieve the initrd
 		      at <path>. it will be stored at the address indicated in
